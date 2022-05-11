@@ -1,18 +1,18 @@
 #!/usr/bin/perl
 
-$lambda=30.0;
+$lambda=20.0;
 $mu=33.0;
-$duration=1000.0; #sec
+$duration=1000000.0; #sec
 
 $rho=$lambda/$mu;
 
 print "Charge: $rho\n";
-print "Capa. file\tTx analy.\tTx simu.\n";
+print "Capa. file,Tx analy.,Tx simu.\n";
 
-for ($qsize=1; $qsize<=20; $qsize++) {
+for ($qsize=20; $qsize>=0; $qsize--) {
     		
     #Start simulation to compute practical loss rate
-    system("../ns mm1k.tcl $lambda $mu $duration $qsize >/dev/null 2>&1");
+    system("ns mm1k.tcl $lambda $mu $duration $qsize >/dev/null 2>&1");
 
     #Compute practical loss rate
     $loss=`grep ^d out.tr | grep -c "0 1 udp"`;
@@ -23,6 +23,6 @@ for ($qsize=1; $qsize<=20; $qsize++) {
     $theorique=($rho**$qsize) * (1-$rho)/(1-($rho**($qsize+1)));   #** = ^ 
    
     #Print results
-    print "$qsize\t$theorique\t$pratique\n";
+    print "$qsize,$theorique,$pratique\n";
 }
 exit;

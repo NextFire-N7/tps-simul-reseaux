@@ -29,7 +29,7 @@ while (<DATA>) {
   } else {
     $var=$x[2];
  }
- $conf=1.96*sqrt($var)/sqrt($departure);
+ $conf=1.96*sqrt(abs($var))/sqrt(abs($departure));
  $sup=$avr+$conf;
  $inf=$avr-$conf;
  printf STDOUT "%13f%10d%13f%13f%13f%13f%13f\n", $x[0],$x[1],$x[2],$avr,$conf,$inf,$sup;

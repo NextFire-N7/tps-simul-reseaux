@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #Parametres de simulation (en format float)
-lambda=20.0
+lambda=$1
 mu=33.0
-duration=5.0 #sec
+duration=$2 #sec
 
 echo "Lancement de la simulation"
-../ns md1.tcl $lambda $mu $duration >/dev/null 2>&1
+ns md1.tcl $lambda $mu $duration >/dev/null 2>&1
 
 echo "Traitement du temps de reponse (tr)"
 cd trace_Response

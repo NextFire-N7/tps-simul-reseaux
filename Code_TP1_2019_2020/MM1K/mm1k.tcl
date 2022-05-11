@@ -19,9 +19,9 @@ $ns queue-limit $n1 $n2 $qsize
 # generate random interarrival times and packet sizes
 set InterArrivalTime [new RandomVariable/Exponential]
 $InterArrivalTime set avg_ [expr 1.0/$lambda]
-set pktSize [new RandomVariable/Exponential]
-$pktSize set avg_ [expr 100000.0/(8.0*$mu)]
-#set pktSize [expr 100000.0/(8.0*$mu)]
+# set pktSize [new RandomVariable/Exponential]
+# $pktSize set avg_ [expr 100000.0/(8.0*$mu)]
+set pktSize [expr 100000.0/(8.0*$mu)]
 
 Queue/DropTail set mean_pktsize_ 100000.0*8.0
 set src [new Agent/UDP]
@@ -43,7 +43,7 @@ proc sendpacket {} {
     global ns src InterArrivalTime pktSize 
     set time [$ns now]
     $ns at [expr $time + [$InterArrivalTime value]] "sendpacket"
-    set bytes [expr round ([$pktSize value])]
+    set bytes [expr round ($pktSize)]
     $src send $bytes
     puts "time:$time"
 }
