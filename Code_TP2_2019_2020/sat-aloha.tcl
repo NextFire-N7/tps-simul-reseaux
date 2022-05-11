@@ -34,9 +34,9 @@ global ns
 set ns [new Simulator]
 
 # Global configuration parameters for Aloha (also settable in ns-sat.tcl)
-Mac/Sat/UnslottedAloha set mean_backoff_ 1s ; # mean exponential backoff time(s) TODO:
+Mac/Sat/UnslottedAloha set mean_backoff_ 0.001s ; # mean exponential backoff time(s) TODO:
 Mac/Sat/UnslottedAloha set rtx_limit_ 3; # max number of retrans. attempted  TODO:
-Mac/Sat/UnslottedAloha set send_timeout_ 270ms; # resend if send times out TODO: ici ?
+Mac/Sat/UnslottedAloha set send_timeout_ 270ms; # resend if send times out
 
 if { $test_ == "basic"} {
 	Mac/Sat set trace_collisions_ false
@@ -55,7 +55,7 @@ set opt(ll)             LL/Sat
 set opt(wiredRouting)   OFF
 
 # XXX This tracing enabling must precede link and node creation
-set outfile [open out.tr w]
+set outfile [open $::env(OUTFILE) w]
 $ns trace-all $outfile
 
 # Set up satellite and terrestrial nodes
@@ -98,7 +98,7 @@ for {set a 1} {$a <= $num_nodes} {incr a} {
 	if {$test_ == "poisson"} {
 		$exp($a) set rate_ 10000Mb
 		$exp($a) set burst_time_ 0
-		$exp($a) set idle_time_ 0.12
+		$exp($a) set idle_time_ $::env(IDLE)
 		#0.17
 	}
 
