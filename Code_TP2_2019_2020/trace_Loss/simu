@@ -1,4 +1,4 @@
-../ns ../sat-aloha.tcl poisson
+ns ../sat-aloha.tcl poisson
 perl loss.pl out.tr > loss.out
 tail -1 loss.out
 cat head.out
